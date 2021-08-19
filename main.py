@@ -96,6 +96,11 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
+        # przemyśleć poniższe
+        for p in listaSuperpixeli:
+            if event.type == pygame.mouse.get_pos():
+                p.klik()
+
         window.fill((60, 25, 60))
         for p in listaSuperpixeli:
             p.draw(window)
