@@ -15,15 +15,17 @@ resolution = (800, 600)
 window = pygame.display.set_mode(resolution)
 
 
-# zmienne klasowe
-# - współrzędne lewego górnego rogu superpiksela
-# - kolor piksela (z pomocniczymi kolorami czarnym i białym)
-# - kwadrat kontrolujący superpixel
-#
-# metoda klik() zmienia kolor superpixela po kliknięciu na niego
-# metoda zmianaKoloru(kolor) zmienia aktualny kolor na zadany
-# metoda draw() rysuje superpixel
 class SuperPixel:
+    """
+     zmienne klasowe
+     - współrzędne lewego górnego rogu superpiksela
+     - kolor piksela (z pomocniczymi kolorami czarnym i białym)
+     - kwadrat kontrolujący superpixel
+
+     metoda klik() zmienia kolor superpixela po kliknięciu na niego
+     metoda zmianaKoloru(kolor) zmienia aktualny kolor na zadany
+     metoda draw() rysuje superpixel
+    """
     def __init__(self, x, y):
         self.x_cord = x
         self.y_cord = y
@@ -45,14 +47,16 @@ class SuperPixel:
         pygame.draw.rect(win, self.kolor, self.kwadrat)
 
 
-# Zmienne klasowe:
-# - współrzędne x i y
-# - obraz wyświtlany normalnie i po najechaniu myszą
-# - pole pod przyciskiem, przechwytujące akcje myszy
-#
-# metoda klikPrzycisk() zwraca True, jeśli klinęliśmy LPM
-# metoda draw(win) kontroluje wyświetlany obraz (w zależności, czy najechaliśmy myszą, czy nie)
 class Przycisk:
+    """
+    Zmienne klasowe:
+     - współrzędne x i y
+     - obraz wyświtlany normalnie i po najechaniu myszą
+     - pole pod przyciskiem, przechwytujące akcje myszy
+
+    metoda klikPrzycisk() zwraca True, jeśli klinęliśmy LPM
+    metoda draw(win) kontroluje wyświetlany obraz (w zależności, czy najechaliśmy myszą, czy nie)
+    """
     def __init__(self, x, y, nazwaPliku):
         self.x_cord = x
         self.y_cord = y
@@ -92,7 +96,7 @@ def main():
         y += 30
 
     while run:
-        clock += pygame.time.Clock().tick(60)/1000
+        #clock += pygame.time.Clock().tick(60)/1000
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
