@@ -77,6 +77,8 @@ def main():
     clock = 0
     black = (0, 0, 0)
     white = (255, 255, 255)
+    positionX = 0
+    positionY = 0
     x = 10
     y = 10
 
@@ -95,11 +97,18 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if pygame.mouse.get_pressed()[0]:
+                    positionX, positionY = pygame.mouse.get_pos()
+        print(str(positionX) + " " + str(positionY))
 
-        # przemyśleć poniższe
         for p in listaSuperpixeli:
-            if event.type == pygame.mouse.get_pos():
+            if p.x_cord <= positionX < p.x_cord + 30 and p.y_cord <= positionY < p.y_cord + 30:
                 p.klik()
+
+        #if pygame.mouse.get_pressed()[0]:
+        #    pos = pygame.mouse.get_pos()
+        #print(pos)
 
         window.fill((60, 25, 60))
         for p in listaSuperpixeli:
