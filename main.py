@@ -15,36 +15,43 @@ resolution = (800, 600)
 window = pygame.display.set_mode(resolution)
 
 
-class superPixel:
+# zmienne klasowe
+# - współrzędne lewego górnego rogu superpiksela
+# - kolor piksela (z pomocniczymi kolorami czarnym i białym)
+# - kwadrat kontrolujący superpixel
+#
+# metoda klik() zmienia kolor superpixela po kliknięciu na niego
+# metoda zmianaKoloru(kolor) zmienia aktualny kolor na zadany
+# metoda draw() rysuje superpixel
+class SuperPixel:
     def __init__(self, x, y):
         self.x_cord = x
         self.y_cord = y
         self.black = (0, 0, 0)
         self.white = (255, 255, 255)
-        self.kwadrat = pygame.Rect(self.x_cord, self.y_cord, 10, 10)
+        self.kwadrat = pygame.Rect(self.x_cord, self.y_cord, 30, 30)
         self.kolor = self.white
 
     def klik(self):
         if self.kolor == self.white:
-            self.kolor == self.black
+            self.kolor = self.black
         else:
-            self.kolor == self.white
+            self.kolor = self.white
 
     def zmianaKoloru(self, kolor):
         self.kolor = kolor
 
-    def draw(self, win, background):
+    def draw(self, win):
         pygame.draw.rect(win, self.kolor, self.kwadrat)
 
-"""
-Zmienne klasowe:
-- współrzędne x i y
-- obraz wyświtlany normalnie i po najechaniu myszą
-- pole pod przyciskiem, przechwytujące akcje myszy
 
-metoda klikPrzycisk() zwraca True, jeśli klinęliśmy LPM
-metoda draw(win) kontroluje wyświetlany obraz (w zależności, czy najechaliśmy myszą, czy nie)
-"""
+# Zmienne klasowe:
+# - współrzędne x i y
+# - obraz wyświtlany normalnie i po najechaniu myszą
+# - pole pod przyciskiem, przechwytujące akcje myszy
+#
+# metoda klikPrzycisk() zwraca True, jeśli klinęliśmy LPM
+# metoda draw(win) kontroluje wyświetlany obraz (w zależności, czy najechaliśmy myszą, czy nie)
 class Przycisk:
     def __init__(self, x, y, nazwaPliku):
         self.x_cord = x
@@ -70,6 +77,17 @@ def main():
     clock = 0
     black = (0, 0, 0)
     white = (255, 255, 255)
+    x = 10
+    y = 10
+
+    listaSuperpixeli = []
+    for i in range(7):
+        for j in range(5):
+            superP = SuperPixel(x, y)
+            x += 30
+            listaSuperpixeli.append(superP)
+        x = 10
+        y += 30
 
     while run:
         clock += pygame.time.Clock().tick(60)/1000
@@ -79,6 +97,8 @@ def main():
                 run = False
 
         window.fill((60, 25, 60))
+        for p in listaSuperpixeli:
+            p.draw(window)
 
         pygame.display.update()
 
