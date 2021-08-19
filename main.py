@@ -11,13 +11,37 @@ import pygame
 
 
 pygame.init()
-resolution = (1280, 720)
+resolution = (800, 600)
 window = pygame.display.set_mode(resolution)
+
+
+class superPixel:
+    def __init__(self, x, y):
+        self.x_cord = x
+        self.y_cord = y
+        self.black = (0, 0, 0)
+        self.white = (255, 255, 255)
+        self.kwadrat = pygame.Rect(self.x_cord, self.y_cord, 10, 10)
+        self.kolor = self.white
+
+    def klik(self):
+        if self.kolor == self.white:
+            self.kolor == self.black
+        else:
+            self.kolor == self.white
+
+    def zmianaKoloru(self, kolor):
+        self.kolor = kolor
+
+    def draw(self, win, background):
+        pygame.draw.rect(win, self.kolor, self.kwadrat)
 
 
 def main():
     run = True
     clock = 0
+    black = (0, 0, 0)
+    white = (255, 255, 255)
 
     while run:
         clock += pygame.time.Clock().tick(60)/1000
@@ -25,6 +49,8 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+
+        window.fill((60, 25, 60))
 
         pygame.display.update()
 
