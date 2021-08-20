@@ -75,7 +75,7 @@ class Przycisk:
         else:
             win.blit(self.obrazPrzycisku, (self.x_cord, self.y_cord))
 
-
+'''
 def main():
     run = True
     clock = 0
@@ -96,7 +96,7 @@ def main():
         y += 30
 
     while run:
-        #clock += pygame.time.Clock().tick(60)/1000
+        clock += pygame.time.Clock().tick(60)/1000
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -123,4 +123,46 @@ def main():
 
 if __name__ == '__main__':
     main()
+'''
+run = True
+clock = 0
+black = (0, 0, 0)
+white = (255, 255, 255)
+positionX = 0
+positionY = 0
+x = 10
+y = 10
 
+listaSuperpixeli = []
+for i in range(7):
+    for j in range(5):
+        superP = SuperPixel(x, y)
+        x += 30
+        listaSuperpixeli.append(superP)
+    x = 10
+    y += 30
+
+while run:
+    clock += pygame.time.Clock().tick(60)/1000
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if pygame.mouse.get_pressed()[0]:
+                positionX, positionY = pygame.mouse.get_pos()
+    print(str(positionX) + " " + str(positionY))
+
+    for p in listaSuperpixeli:
+        if p.x_cord <= positionX < p.x_cord + 30 and p.y_cord <= positionY < p.y_cord + 30:
+            p.klik()
+
+        #if pygame.mouse.get_pressed()[0]:
+        #    pos = pygame.mouse.get_pos()
+        #print(pos)
+
+    window.fill((60, 25, 60))
+    for p in listaSuperpixeli:
+        p.draw(window)
+
+    pygame.display.update()
