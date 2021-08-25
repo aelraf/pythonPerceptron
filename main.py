@@ -76,7 +76,20 @@ class Przycisk:
         else:
             win.blit(self.obrazPrzycisku, (self.x_cord, self.y_cord))
 
-'''
+
+class Perceptron:
+    """
+    klasa realizująca Perceptron
+    każdy perceptron inicjujemy jako "zgaszony" (czyli 0), 1 interpretujemy jako "zapalony"
+    """
+
+    def __init__(self):
+        self.value = 0
+
+    def nauka(self):
+        pass
+
+
 def main():
     run = True
     clock = 0
@@ -84,6 +97,11 @@ def main():
     white = (255, 255, 255)
     positionX = 0
     positionY = 0
+    przycisk_start = Przycisk()
+    przycisk_koniec = Przycisk()
+    przycisk_nauka = Przycisk()
+    przycisk_koniec = Przycisk()
+
     x = 10
     y = 10
 
@@ -114,10 +132,6 @@ def main():
                 positionY = 0
                 break
 
-        #if pygame.mouse.get_pressed()[0]:
-        #    pos = pygame.mouse.get_pos()
-        #print(pos)
-
         window.fill((60, 25, 60))
         for p in listaSuperpixeli:
             p.draw(window)
@@ -127,54 +141,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-'''
-run = True
-clock = 0
-black = (0, 0, 0)
-white = (255, 255, 255)
-pos = (0, 0)
-positionX = 0
-positionY = 0
-x = 10
-y = 10
-
-listaSuperpixeli = []
-for i in range(7):
-    for j in range(5):
-        superP = SuperPixel(x, y)
-        x += 30
-        listaSuperpixeli.append(superP)
-    x = 10
-    y += 30
-
-while run:
-   # clock += pygame.time.Clock().tick(60)/1000
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if pygame.mouse.get_pressed()[0]:
-                pos = pygame.mouse.get_pos()
-                positionX = pos[0]
-                positionY = pos[1]
-
-    if positionX != 0 and positionY != 0:
-        print(str(positionX) + " " + str(positionY))
-
-    for p in listaSuperpixeli:
-        if p.x_cord <= positionX < p.x_cord + 30 and p.y_cord <= positionY < p.y_cord + 30:
-            p.klik()
-            positionX = 0
-            positionY = 0
-            break
-
-        #if pygame.mouse.get_pressed()[0]:
-        #    pos = pygame.mouse.get_pos()
-        #print(pos)
-
-    window.fill((60, 25, 60))
-    for p in listaSuperpixeli:
-        p.draw(window)
-
-    pygame.display.update()
