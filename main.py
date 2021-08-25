@@ -89,6 +89,12 @@ class Perceptron:
     def nauka(self):
         pass
 
+    def get_value(self):
+        return self.value
+
+    def set_value(self, v):
+        self.value = v
+
 
 def main():
     run = True
