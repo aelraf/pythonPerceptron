@@ -12,7 +12,7 @@ import pygame
 
 
 pygame.init()
-resolution = (800, 600)
+resolution = (400, 300)
 window = pygame.display.set_mode(resolution)
 
 
@@ -103,10 +103,10 @@ def main():
     white = (255, 255, 255)
     positionX = 0
     positionY = 0
-    przycisk_start = Przycisk()
-    przycisk_koniec = Przycisk()
-    przycisk_nauka = Przycisk()
-    przycisk_koniec = Przycisk()
+    przycisk_nauka = Przycisk(300, 40, "buttons/nauka")
+    przycisk_start = Przycisk(300, 80, "buttons/start")
+    przycisk_stop = Przycisk(300, 120, "buttons/stop")
+    przycisk_koniec = Przycisk(300, 160, "buttons/koniec")
 
     x = 10
     y = 10
@@ -142,6 +142,10 @@ def main():
         for p in listaSuperpixeli:
             p.draw(window)
 
+        przycisk_nauka.draw(window)
+        przycisk_stop.draw(window)
+        przycisk_koniec.draw(window)
+        przycisk_start.draw(window)
         pygame.display.update()
 
 
