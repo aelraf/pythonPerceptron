@@ -68,17 +68,28 @@ class Przycisk:
         self.obrazKlikniety = pygame.image.load(f"{nazwaPliku}klik.png")
         self.polePrzycisku = pygame.Rect(self.x_cord, self.y_cord, self.obrazPrzycisku.get_width(), self.obrazPrzycisku.get_height())
         self.nazwa = nazwaPliku
+        self.status = False
 
     def klikPrzycisk(self):
         if self.polePrzycisku.collidepoint(pygame.mouse.get_pos()):
             if pygame.mouse.get_pressed()[0]:
                 print(self.nazwa)
+                self.status = True
+                return True
+        self.status = False
+        return False
 
     def draw(self, win):
         if self.polePrzycisku.collidepoint(pygame.mouse.get_pos()):
             win.blit(self.obrazKlikniety, (self.x_cord, self.y_cord))
         else:
             win.blit(self.obrazPrzycisku, (self.x_cord, self.y_cord))
+
+    def setStatus(self, status):
+        self.status = status
+
+    def getStatus(self):
+        return self.status
 
 
 class Perceptron:
@@ -107,10 +118,15 @@ def main():
     white = (255, 255, 255)
     positionX = 0
     positionY = 0
+    tabP = []
     przycisk_nauka = Przycisk(300, 40, "buttons/nauka")
+    tabP.append(przycisk_nauka)
     przycisk_start = Przycisk(300, 80, "buttons/start")
+    tabP.append(przycisk_start)
     przycisk_stop = Przycisk(300, 120, "buttons/stop")
+    tabP.append(przycisk_stop)
     przycisk_koniec = Przycisk(300, 160, "buttons/koniec")
+    tabP.append(przycisk_koniec)
 
     x = 10
     y = 10
@@ -131,10 +147,10 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                przycisk_stop.klikPrzycisk()
-                przycisk_koniec.klikPrzycisk()
-                przycisk_nauka.klikPrzycisk()
-                przycisk_start.klikPrzycisk()
+                for p in tabP:
+                    if p.klikPrzycisk():
+                        pass
+
                 if pygame.mouse.get_pressed()[0]:
                     positionX, positionY = pygame.mouse.get_pos()
         print(str(positionX) + " " + str(positionY))
@@ -150,10 +166,9 @@ def main():
         for p in listaSuperpixeli:
             p.draw(window)
 
-        przycisk_nauka.draw(window)
-        przycisk_stop.draw(window)
-        przycisk_koniec.draw(window)
-        przycisk_start.draw(window)
+        for p in tabP:
+            p.draw(window)
+
         pygame.display.update()
 
 
