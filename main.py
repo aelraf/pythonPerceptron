@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # RafKac
 # 2021_08_19
+# 2021_08_23
 #
 # program realizujący Perceptron do rozpoznawania liczb, na podstawie mojego kodu z C++
 # najpierw tworzymy GUI
@@ -109,6 +110,9 @@ def main():
         for p in listaSuperpixeli:
             if p.x_cord <= positionX < p.x_cord + 30 and p.y_cord <= positionY < p.y_cord + 30:
                 p.klik()
+                positionX = 0
+                positionY = 0
+                break
 
         #if pygame.mouse.get_pressed()[0]:
         #    pos = pygame.mouse.get_pos()
@@ -128,6 +132,7 @@ run = True
 clock = 0
 black = (0, 0, 0)
 white = (255, 255, 255)
+pos = (0, 0)
 positionX = 0
 positionY = 0
 x = 10
@@ -143,19 +148,26 @@ for i in range(7):
     y += 30
 
 while run:
-    clock += pygame.time.Clock().tick(60)/1000
+   # clock += pygame.time.Clock().tick(60)/1000
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             if pygame.mouse.get_pressed()[0]:
-                positionX, positionY = pygame.mouse.get_pos()
-    print(str(positionX) + " " + str(positionY))
+                pos = pygame.mouse.get_pos()
+                positionX = pos[0]
+                positionY = pos[1]
+
+    if positionX != 0 and positionY != 0:
+        print(str(positionX) + " " + str(positionY))
 
     for p in listaSuperpixeli:
         if p.x_cord <= positionX < p.x_cord + 30 and p.y_cord <= positionY < p.y_cord + 30:
             p.klik()
+            positionX = 0
+            positionY = 0
+            break
 
         #if pygame.mouse.get_pressed()[0]:
         #    pos = pygame.mouse.get_pos()
