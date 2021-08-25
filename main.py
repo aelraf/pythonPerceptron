@@ -2,6 +2,7 @@
 # RafKac
 # 2021_08_19
 # 2021_08_23
+# 2021_08_25
 #
 # program realizujący Perceptron do rozpoznawania liczb, na podstawie mojego kodu z C++
 # najpierw tworzymy GUI
@@ -57,6 +58,8 @@ class Przycisk:
 
     metoda klikPrzycisk() zwraca True, jeśli klinęliśmy LPM
     metoda draw(win) kontroluje wyświetlany obraz (w zależności, czy najechaliśmy myszą, czy nie)
+
+    zmienna "nazwa" kontroluje akcję po wciśnięciu przycisku
     """
     def __init__(self, x, y, nazwaPliku):
         self.x_cord = x
@@ -64,11 +67,12 @@ class Przycisk:
         self.obrazPrzycisku = pygame.image.load(f"{nazwaPliku}.png")
         self.obrazKlikniety = pygame.image.load(f"{nazwaPliku}klik.png")
         self.polePrzycisku = pygame.Rect(self.x_cord, self.y_cord, self.obrazPrzycisku.get_width(), self.obrazPrzycisku.get_height())
+        self.nazwa = nazwaPliku
 
     def klikPrzycisk(self):
         if self.polePrzycisku.collidepoint(pygame.mouse.get_pos()):
             if pygame.mouse.get_pressed()[0]:
-                return True
+                print(self.nazwa)
 
     def draw(self, win):
         if self.polePrzycisku.collidepoint(pygame.mouse.get_pos()):
@@ -127,6 +131,10 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
+                przycisk_stop.klikPrzycisk()
+                przycisk_koniec.klikPrzycisk()
+                przycisk_nauka.klikPrzycisk()
+                przycisk_start.klikPrzycisk()
                 if pygame.mouse.get_pressed()[0]:
                     positionX, positionY = pygame.mouse.get_pos()
         print(str(positionX) + " " + str(positionY))
@@ -134,9 +142,9 @@ def main():
         for p in listaSuperpixeli:
             if p.x_cord <= positionX < p.x_cord + 30 and p.y_cord <= positionY < p.y_cord + 30:
                 p.klik()
-                positionX = 0
-                positionY = 0
                 break
+        positionX = 0
+        positionY = 0
 
         window.fill((60, 25, 60))
         for p in listaSuperpixeli:
