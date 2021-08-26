@@ -15,7 +15,7 @@ import pygame
 pygame.init()
 resolution = (400, 300)
 window = pygame.display.set_mode(resolution)
-
+run = True
 
 class SuperPixel:
     """
@@ -67,14 +67,15 @@ class Przycisk:
         self.obrazPrzycisku = pygame.image.load(f"{nazwaPliku}.png")
         self.obrazKlikniety = pygame.image.load(f"{nazwaPliku}klik.png")
         self.polePrzycisku = pygame.Rect(self.x_cord, self.y_cord, self.obrazPrzycisku.get_width(), self.obrazPrzycisku.get_height())
-        self.nazwa = nazwaPliku
+        self.nazwa = nazwaPliku[8:]
         self.status = False
 
-    def klikPrzycisk(self):
+    def klikPrzycisk(self, nazwaFunkcji):
         if self.polePrzycisku.collidepoint(pygame.mouse.get_pos()):
             if pygame.mouse.get_pressed()[0]:
-                print(self.nazwa)
                 self.status = True
+                print(nazwaFunkcji)
+                #nazwaFunkcji()
                 return True
         self.status = False
         return False
@@ -111,8 +112,26 @@ class Perceptron:
         self.value = v
 
 
+def start():
+    pass
+
+
+def stop():
+    pass
+
+
+def nauka():
+    pass
+
+
+def koniec():
+    global run
+    pygame.QUIT
+    run = False
+
+
 def main():
-    run = True
+    global run
     clock = 0
     black = (0, 0, 0)
     white = (255, 255, 255)
@@ -148,7 +167,7 @@ def main():
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for p in tabP:
-                    if p.klikPrzycisk():
+                    if p.klikPrzycisk(p.nazwa):
                         pass
 
                 if pygame.mouse.get_pressed()[0]:
