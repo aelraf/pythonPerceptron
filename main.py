@@ -99,11 +99,24 @@ class Wynik:
     def __init__(self, x, y, w, h):
         self.x_cord = x
         self.y_cord = y
+        self.x_wyn = x
+        self.y_wyn = y + 30
         self.width = w
         self.height = h
         self.wynik = "-"
 
+        pygame.font.init()
+        self.font = pygame.font.SysFont("Arial", 24)
+        self.tekst = self.font.render("Wynik", False, [255, 255, 255])
+        self.tekstW = self.font.render(self.wynik, False, [255, 255, 255])
+
+    def draw(self, win):
+        self.tekstW = self.font.render(self.wynik, False, [255, 255, 255])
+        win.blit(self.tekst, [self.x_cord, self.y_cord])
+        win.blit(self.tekstW, [self.x_wyn + 30, self.y_wyn])
+
     def set_wynik(self, wynik):
+        print("zmiana wyniku - metoda setWynik()")
         self.wynik = wynik
 
     def get_wynik(self):
@@ -154,6 +167,7 @@ def main():
     clock = 0
     black = (0, 0, 0)
     white = (255, 255, 255)
+    wynik = Wynik(200, 50, 50, 50)
     positionX = 0
     positionY = 0
     tabP = []
@@ -199,6 +213,12 @@ def main():
                 if pygame.mouse.get_pressed()[0]:
                     positionX, positionY = pygame.mouse.get_pos()
         print(str(positionX) + " " + str(positionY))
+        if 3 < clock < 6:
+            wynik.set_wynik("4")
+            print("clock > 3, zmiana wyniku")
+        elif clock > 6:
+            wynik.set_wynik("7")
+            print("clock > 6, zmiana wyniku")
 
         for p in listaSuperpixeli:
             if p.x_cord <= positionX < p.x_cord + 30 and p.y_cord <= positionY < p.y_cord + 30:
@@ -213,7 +233,7 @@ def main():
 
         for p in tabP:
             p.draw(window)
-
+        wynik.draw(window)
         pygame.display.update()
 
 
