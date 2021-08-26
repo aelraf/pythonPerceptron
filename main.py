@@ -12,33 +12,14 @@
 import pygame
 import Perceptron
 import SuperPixel
+import Przyklady
 
 
 pygame.init()
 resolution = (400, 300)
 window = pygame.display.set_mode(resolution)
 run = True
-
-
-class Przyklad:
-    """
-    klasa ma dwie zmienne - listę 35 cyfr oznaczających piksele (0, 1)
-    oraz wartość wyniku do porównywania (zaczynamy od -1, oznaczającą stan nierozpoznany)
-    """
-    def __init__(self, cyfra=-1):
-        self.lista = []
-        self.cyfra = cyfra
-
-    def dodajStringDoListy(self, napis, cyfra):
-        """
-        bierzemy stringa i dodajemy do tablicy intów
-        """
-        for s in napis:
-            self.lista.append(int(s))
-        self.cyfra = cyfra
-
-    def czyscListePrzykladow(self):
-        self.lista.clear()
+listaSuperpixeli = []
 
 
 class Przycisk:
@@ -133,12 +114,20 @@ def koniec():
     run = False
 
 
+def rysuj(przyklad):
+    global listaSuperpixeli
+    for i in przyklad.lista:
+        if i == '1':
+            print("zmiana")
+            listaSuperpixeli[i].klik()
+
 def main():
-    global run
+    global run, listaSuperpixeli
     clock = 0
     black = (0, 0, 0)
     white = (255, 255, 255)
     wynik = Wynik(200, 50, 50, 50)
+    przyklady = Przyklady.Przyklady()
     positionX = 0
     positionY = 0
     tabP = []
@@ -154,7 +143,6 @@ def main():
     x = 10
     y = 10
 
-    listaSuperpixeli = []
     for i in range(7):
         for j in range(5):
             superP = SuperPixel.SuperPixel(x, y)
@@ -162,6 +150,9 @@ def main():
             listaSuperpixeli.append(superP)
         x = 10
         y += 30
+
+    for p in przyklady.listaPrzykladow:
+        rysuj(p)
 
     while run:
         clock += pygame.time.Clock().tick(60)/1000
