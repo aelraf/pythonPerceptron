@@ -70,12 +70,10 @@ class Przycisk:
         self.nazwa = nazwaPliku[8:]
         self.status = False
 
-    def klikPrzycisk(self, nazwaFunkcji):
+    def klikPrzycisk(self):
         if self.polePrzycisku.collidepoint(pygame.mouse.get_pos()):
             if pygame.mouse.get_pressed()[0]:
                 self.status = True
-                print(nazwaFunkcji)
-                #nazwaFunkcji()
                 return True
         self.status = False
         return False
@@ -91,6 +89,26 @@ class Przycisk:
 
     def getStatus(self):
         return self.status
+
+
+class Wynik:
+    """
+    klasa ma za zadanie wyświetlić wynik wraz z podpisem, co to jest
+    czyli na górze ma pole tekstowe "Wynik", a na dole pole wyświetlające rozpoznaną cyfrę
+    """
+    def __init__(self, x, y, w, h):
+        self.x_cord = x
+        self.y_cord = y
+        self.width = w
+        self.height = h
+        self.wynik = "-"
+
+    def set_wynik(self, wynik):
+        self.wynik = wynik
+
+    def get_wynik(self):
+        return self.wynik
+
 
 
 class Perceptron:
@@ -113,19 +131,20 @@ class Perceptron:
 
 
 def start():
-    pass
+    print("start()")
 
 
 def stop():
-    pass
+    print("stop()")
 
 
 def nauka():
-    pass
+    print("nauka()")
 
 
 def koniec():
     global run
+    print("Metoda koniec()")
     pygame.QUIT
     run = False
 
@@ -167,8 +186,15 @@ def main():
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for p in tabP:
-                    if p.klikPrzycisk(p.nazwa):
-                        pass
+                    if p.klikPrzycisk():
+                        if p.nazwa == "nauka":
+                            nauka()
+                        elif p.nazwa == "start":
+                            start()
+                        elif p.nazwa == "stop":
+                            stop()
+                        elif p.nazwa == "koniec":
+                            koniec()
 
                 if pygame.mouse.get_pressed()[0]:
                     positionX, positionY = pygame.mouse.get_pos()
