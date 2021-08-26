@@ -17,6 +17,7 @@ resolution = (400, 300)
 window = pygame.display.set_mode(resolution)
 run = True
 
+
 class SuperPixel:
     """
      zmienne klasowe
@@ -51,15 +52,23 @@ class SuperPixel:
 
 class Przyklad:
     """
-    klasa ma dwie zmienne - listę 35 bitów oznaczających piksele
+    klasa ma dwie zmienne - listę 35 cyfr oznaczających piksele (0, 1)
     oraz wartość wyniku do porównywania (zaczynamy od -1, oznaczającą stan nierozpoznany)
     """
     def __init__(self, cyfra=-1):
         self.lista = []
         self.cyfra = cyfra
 
-    def p(self):
-        pass
+    def dodajStringDoListy(self, napis, cyfra):
+        """
+        bierzemy stringa i dodajemy do tablicy intów
+        """
+        for s in napis:
+            self.lista.append(int(s))
+        self.cyfra = cyfra
+
+    def czyscListePrzykladow(self):
+        self.lista.clear()
 
 
 class Przycisk:
@@ -141,17 +150,18 @@ class Perceptron:
     """
     klasa realizująca Perceptron
     każdy perceptron inicjujemy jako "zgaszony" (czyli 0), 1 interpretujemy jako "zapalony"
-    wyniki:
+    w konstruktorze generujemy losową tablicę wag
     """
 
     def __init__(self):
-        self.value = 0
 
-    def get_value(self):
-        return self.value
-
-    def set_value(self, v):
-        self.value = v
+        self.tablicaWag = []
+        self.n = 0
+        self.theta = 0.1
+        self.ERR = 0
+        self.wynikDzialaniaSieci = 0
+        self.stalaUczenia = 0.1
+        self.czyPrzykladJestTaLiczba = 0
 
 
 def start():
