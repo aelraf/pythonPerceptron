@@ -131,9 +131,11 @@ def main():
         y += 30
 
     przyklady = Przyklady.Przyklady()
+    przykladyTestowe = Przyklady.Przyklady()
     przyklady.dodajPrzyklady()
-    for p in przyklady.listaPrzykladow:
-        rysuj(p)
+    przykladyTestowe
+#    for p in przyklady.listaPrzykladow:
+#        rysuj(p)
 
     while run:
         clock += pygame.time.Clock().tick(60)/1000
