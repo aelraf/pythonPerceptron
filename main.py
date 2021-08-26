@@ -117,9 +117,13 @@ def koniec():
 def rysuj(przyklad):
     global listaSuperpixeli
     for i in przyklad.lista:
-        if i == '1':
-            print("zmiana")
-            listaSuperpixeli[i].klik()
+        if i == 1:
+            print("rysuj przyklad - zmiana")
+            listaSuperpixeli[i].zmianaKoloru((0, 0, 0))
+    for p in listaSuperpixeli:
+        p.draw(window)
+    pygame.display.update()
+
 
 def main():
     global run, listaSuperpixeli
@@ -127,7 +131,6 @@ def main():
     black = (0, 0, 0)
     white = (255, 255, 255)
     wynik = Wynik(200, 50, 50, 50)
-    przyklady = Przyklady.Przyklady()
     positionX = 0
     positionY = 0
     tabP = []
@@ -151,6 +154,8 @@ def main():
         x = 10
         y += 30
 
+    przyklady = Przyklady.Przyklady()
+    przyklady.dodajPrzyklady()
     for p in przyklady.listaPrzykladow:
         rysuj(p)
 
@@ -174,7 +179,7 @@ def main():
 
                 if pygame.mouse.get_pressed()[0]:
                     positionX, positionY = pygame.mouse.get_pos()
-        print(str(positionX) + " " + str(positionY))
+        #print(str(positionX) + " " + str(positionY))
 
         for p in listaSuperpixeli:
             if p.x_cord <= positionX < p.x_cord + 30 and p.y_cord <= positionY < p.y_cord + 30:

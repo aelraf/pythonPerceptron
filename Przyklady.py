@@ -36,3 +36,4 @@ class Przyklady:
         p1 = Przyklad()
         p1.dodajStringDoListy("01110100011000110001100011000101110", 0)
         self.listaPrzykladow.append(p1)
+        print("metoda dodajPrzyklady - lista nie jest pusta")
