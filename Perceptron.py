@@ -47,5 +47,6 @@ class Perceptron:
 
     def aktualizacja_wag(self):
         for i in range(35):
-            wpis = self.tablicaWag[i]
-            wpis += self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba.
+            self.tablicaWag[i] += self.stalaUczenia * float(self.ERR) * float(self.czyPrzykladJestTaLiczba)
+            self.theta -= float(self.ERR) * float(self.stalaUczenia)
+            
