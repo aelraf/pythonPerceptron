@@ -14,6 +14,7 @@ import Perceptron
 import SuperPixel
 import Przyklady
 import Wynik
+import time
 
 
 pygame.init()
@@ -89,17 +90,18 @@ def rysuj(przyklad):
     licznik = 0
     for i in przyklad.lista:
         if i == 1:
-            print("rysuj przyklad - zmiana: " + str(i))
             listaSuperpixeli[licznik].zmianaKoloru((0, 0, 0))
-            print(listaSuperpixeli[licznik].kolor)
         else:
             listaSuperpixeli[licznik].zmianaKoloru((255, 255, 255))
         licznik += 1
     wynik.wynik = str(przyklad.cyfra)
-
+    time.sleep(3)
 
 
 def main():
+    """
+    tabP to tablica przycisków kontrolnych (tych z prawej strony okna)
+    """
     global run, listaSuperpixeli, wynik
     clock = 0
     black = (0, 0, 0)
