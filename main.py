@@ -10,6 +10,7 @@
 # "liczby" do rozpoznawania są zapisywane 0/1, gdzie 1 <=> czarny, 0 <=> biały
 
 import pygame
+import Perceptron
 
 
 pygame.init()
@@ -144,24 +145,6 @@ class Wynik:
 
     def get_wynik(self):
         return self.wynik
-
-
-class Perceptron:
-    """
-    klasa realizująca Perceptron
-    każdy perceptron inicjujemy jako "zgaszony" (czyli 0), 1 interpretujemy jako "zapalony"
-    w konstruktorze generujemy losową tablicę wag
-    """
-
-    def __init__(self):
-
-        self.tablicaWag = []
-        self.n = 0
-        self.theta = 0.1
-        self.ERR = 0
-        self.wynikDzialaniaSieci = 0
-        self.stalaUczenia = 0.1
-        self.czyPrzykladJestTaLiczba = 0
 
 
 def start():
