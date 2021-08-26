@@ -49,6 +49,19 @@ class SuperPixel:
         pygame.draw.rect(win, self.kolor, self.kwadrat)
 
 
+class Przyklad:
+    """
+    klasa ma dwie zmienne - listę 35 bitów oznaczających piksele
+    oraz wartość wyniku do porównywania (zaczynamy od -1, oznaczającą stan nierozpoznany)
+    """
+    def __init__(self, cyfra=-1):
+        self.lista = []
+        self.cyfra = cyfra
+
+    def p(self):
+        pass
+
+
 class Przycisk:
     """
     Zmienne klasowe:
@@ -95,6 +108,8 @@ class Wynik:
     """
     klasa ma za zadanie wyświetlić wynik wraz z podpisem, co to jest
     czyli na górze ma pole tekstowe "Wynik", a na dole pole wyświetlające rozpoznaną cyfrę
+    -      oznacza nierozpoznany
+    0 - 9  czyli reszta cyfr
     """
     def __init__(self, x, y, w, h):
         self.x_cord = x
@@ -116,25 +131,21 @@ class Wynik:
         win.blit(self.tekstW, [self.x_wyn + 30, self.y_wyn])
 
     def set_wynik(self, wynik):
-        print("zmiana wyniku - metoda setWynik()")
         self.wynik = wynik
 
     def get_wynik(self):
         return self.wynik
 
 
-
 class Perceptron:
     """
     klasa realizująca Perceptron
     każdy perceptron inicjujemy jako "zgaszony" (czyli 0), 1 interpretujemy jako "zapalony"
+    wyniki:
     """
 
     def __init__(self):
         self.value = 0
-
-    def nauka(self):
-        pass
 
     def get_value(self):
         return self.value
@@ -157,8 +168,6 @@ def nauka():
 
 def koniec():
     global run
-    print("Metoda koniec()")
-    pygame.QUIT
     run = False
 
 
@@ -213,12 +222,6 @@ def main():
                 if pygame.mouse.get_pressed()[0]:
                     positionX, positionY = pygame.mouse.get_pos()
         print(str(positionX) + " " + str(positionY))
-        if 3 < clock < 6:
-            wynik.set_wynik("4")
-            print("clock > 3, zmiana wyniku")
-        elif clock > 6:
-            wynik.set_wynik("7")
-            print("clock > 6, zmiana wyniku")
 
         for p in listaSuperpixeli:
             if p.x_cord <= positionX < p.x_cord + 30 and p.y_cord <= positionY < p.y_cord + 30:
