@@ -38,7 +38,7 @@ class Perceptron:
     def co_jest_na_wyjsciu(self, wektor):
         suma = -1 * self.theta
         for i in range(len(self.tablicaWag)):
-            suma += self.tablicaWag[i] * wektor[i]
+            suma += (self.tablicaWag[i]) * wektor[i]
         if suma >= 0:
             self.wynikDzialaniaSieci = 1
         else:

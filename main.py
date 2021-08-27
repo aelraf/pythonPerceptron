@@ -35,14 +35,43 @@ przykladyTestowe = Przyklady.Przyklady()
 ilosc_powtorzen_nauki = 10000
 
 
+def wczytaj_przyklad():
+    if trybNauki:
+        return
+    p = Przyklady.Przyklad()
+    for sp in listaSuperpixeli:
+        if sp.kolor == (0, 0, 0):
+            p.lista.append(1)
+        else:
+            p.lista.append(0)
+    return p
+
+
 def start():
+    """
+    metoda ma za zadanie sprawdzić wyklikany na superpikselach obrazek - czyli jaką cyfrę tam widzi?
+    ustawia odpowiednią wartość wyniku
+    """
+    global wynik
+    w = ""
     print("start()")
+    przyklad = wczytaj_przyklad()
+    for per in listaPerceptronow:
+        if per.co_jest_na_wyjsciu(przyklad) > 0:
+            w += per.n
+    if w == "":
+        w = "?"
+    wynik.set_wynik(w)
 
 
 def stop():
-    global trybNauki
+    """
+    zatrzymuje naukę w danym momencie, zmienia wyświetlany wynik na "-"
+    """
+    global trybNauki, wynik
     print("stop()")
     trybNauki = False
+    wynik.set_wynik("-")
 
 
 def nauka():
@@ -70,7 +99,7 @@ def nauka():
         l += 1
         while czyJeszczeSprawdzamy:
             rozpatrywany = przykladyTestowe.listaPrzykladow[numerPrzykladu]
-            coNaWyjsciu = p.co_jest_na_wyjsciu(rozpatrywany)
+            coNaWyjsciu = p.co_jest_na_wyjsciu(rozpatrywany.lista)
             p.wartosc_err(rozpatrywany.cyfra)
             if p.ERR == 0:
                 licznik += 1
