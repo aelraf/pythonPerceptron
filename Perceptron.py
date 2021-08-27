@@ -22,7 +22,7 @@ class Perceptron:
         self.czyPrzykladJestTaLiczba = czyPrzyklad
 
         for i in range(35):
-            t = random.randint(0, 1)
+            t = random.random()
             self.tablicaWag.append(t)
 
         print(self.tablicaWag)

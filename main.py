@@ -107,7 +107,8 @@ def nauka():
                 licznik += 1
                 numerPrzykladu = random.randint(0, zakres)
             if licznik % 1000 == 0:
-                print("Nie rozpoznano: {} cyfr: {}".format(funkcja_bledow(p), p.n))
+                blad = funkcja_bledow(p)
+                print("Nie rozpoznano: {} cyfr: {}".format(blad, p.n))
             if licznik == ilosc_powtorzen_nauki:
                 czyJeszczeSprawdzamy = False
     trybNauki = False
@@ -126,9 +127,12 @@ def funkcja_bledow(per):
     """
     licznik = 0
     for p in przykladyTestowe.listaPrzykladow:
-        per.co_jest_na_wyjsciu(p)
+        print(p.cyfra)
+        print(p.lista)
+        print(per.tablicaWag)
+        per.co_jest_na_wyjsciu(p.lista)
         per.wartosc_err(p.cyfra)
-        if per.err != 0:
+        if per.ERR != 0:
             licznik += 1
     return licznik
 
