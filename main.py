@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 # RafKac
-# 2021_08_19
-# 2021_08_23
-# 2021_08_25
-# 2021_08_26
-# 2021_08_27
+# 2021_08_19-27
 #
 # program realizujący Perceptron do rozpoznawania liczb, na podstawie mojego kodu z C++
 # najpierw tworzymy GUI

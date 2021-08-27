@@ -101,4 +101,3 @@ class Przyklady:
         p11 = Przyklad()
         p11.dodajStringDoListy("00100010111000101010001000101010101", -1)
         self.listaPrzykladow.append(p11)
-

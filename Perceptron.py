@@ -36,6 +36,11 @@ class Perceptron:
         self.ERR = pomoc - self.wynikDzialaniaSieci
 
     def co_jest_na_wyjsciu(self, wektor):
+        """
+        :param wektor: czyli tablica liczb całkowitych
+        :return: wynikDzialaniaSieci (binarnie, tzn nie dopuszczamy wartości pośrednich)
+        służy tylko do ustawienia wartości wynikDziałaniaSieci dla danego perceptrona
+        """
         suma = -1 * self.theta
         for i in range(len(self.tablicaWag)):
             suma += (self.tablicaWag[i]) * wektor[i]
