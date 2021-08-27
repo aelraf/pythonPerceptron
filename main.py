@@ -10,13 +10,13 @@
 # najpierw tworzymy GUI
 # później perceptrona
 # "liczby" do rozpoznawania są zapisywane 0/1, gdzie 1 <=> czarny, 0 <=> biały
+# w trybie nauki nie możemy klikać superpiskeli, tylko "stop" i "koniec" są aktywne
 
 import pygame
 import Perceptron
 import SuperPixel
 import Przyklady
 import Wynik
-import time
 import Przycisk
 
 
@@ -24,12 +24,16 @@ pygame.init()
 resolution = (400, 300)
 window = pygame.display.set_mode(resolution)
 run = True
+trybNauki = False
 listaSuperpixeli = []
 listaPerceptronow =[]
 wynik = Wynik.Wynik(200, 50, 50, 50)
+przyklady = Przyklady.Przyklady()
+przykladyTestowe = Przyklady.Przyklady()
 
 
 def start():
+
     print("start()")
 
 
@@ -38,7 +42,13 @@ def stop():
 
 
 def nauka():
+    """
+    metoda odpowiada za nauczenie perceptronów, jeśli sieć jeszcze nie istenieje, to ją tworzy
+    """
+    global trybNauki
     print("nauka()")
+    trybNauki = True
+
 
 
 def koniec():
@@ -46,25 +56,46 @@ def koniec():
     run = False
 
 
+def funkcja_bledow(per):
+    """
+    :param per z klasy Perceptron
+    :return: wartość funkcji błędów
+    jest wykorzystywana tylko podczas uczenia sieci, dlatego korzystamy z przykładów testowych
+    """
+    licznik = 0
+    for p in przykladyTestowe.listaPrzykladow:
+        per.co_jest_na_wyjsciu(p)
+        per.wartosc_err(p.cyfra)
+        if per.err != 0:
+            licznik += 1
+    return licznik
+
+
 def rysuj(przyklad):
+    """
+    :param przyklad:
+    metoda pilnuje wydruku cyfry na superpikselach,
+    ingeruje w zastany stan listySuperpikseli, zmieniając kolory na odpowiednie
+    ustawia także wyświetlany wynik
+    """
     global listaSuperpixeli, wynik
     print(przyklad.lista)
     licznik = 0
-    for i in przyklad.lista:
-        if i == 1:
-            listaSuperpixeli[licznik].zmianaKoloru((0, 0, 0))
-        else:
-            listaSuperpixeli[licznik].zmianaKoloru((255, 255, 255))
-        licznik += 1
-    wynik.wynik = str(przyklad.cyfra)
-    time.sleep(3)
+    if not trybNauki:
+        for i in przyklad.lista:
+            if i == 1:
+                listaSuperpixeli[licznik].zmianaKoloru((0, 0, 0))
+            else:
+                listaSuperpixeli[licznik].zmianaKoloru((255, 255, 255))
+            licznik += 1
+        wynik.wynik = str(przyklad.cyfra)
 
 
 def main():
     """
     tabP to tablica przycisków kontrolnych (tych z prawej strony okna)
     """
-    global run, listaSuperpixeli, wynik
+    global run, listaSuperpixeli, wynik, przyklady, przykladyTestowe
     clock = 0
     black = (0, 0, 0)
     white = (255, 255, 255)
@@ -92,8 +123,6 @@ def main():
         x = 10
         y += 30
 
-    przyklady = Przyklady.Przyklady()
-    przykladyTestowe = Przyklady.Przyklady()
     przyklady.dodajPrzyklady()
     przykladyTestowe.dodajPrzykladyTestowe()
 #    for p in przyklady.listaPrzykladow:
@@ -108,9 +137,9 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for p in tabP:
                     if p.klikPrzycisk():
-                        if p.nazwa == "nauka":
+                        if p.nazwa == "nauka" and not trybNauki:
                             nauka()
-                        elif p.nazwa == "start":
+                        elif p.nazwa == "start" and not trybNauki:
                             start()
                         elif p.nazwa == "stop":
                             stop()
@@ -122,7 +151,7 @@ def main():
         #print(str(positionX) + " " + str(positionY))
 
         for p in listaSuperpixeli:
-            if p.x_cord <= positionX < p.x_cord + 30 and p.y_cord <= positionY < p.y_cord + 30:
+            if p.x_cord <= positionX < p.x_cord + 30 and p.y_cord <= positionY < p.y_cord + 30 and not trybNauki:
                 p.klik()
                 break
         positionX = 0
