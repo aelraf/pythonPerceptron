@@ -13,6 +13,7 @@
 # w trybie nauki nie możemy klikać superpiskeli, tylko "stop" i "koniec" są aktywne
 
 import pygame
+import random
 import Perceptron
 import SuperPixel
 import Przyklady
@@ -31,24 +32,60 @@ wynik = Wynik.Wynik(200, 50, 50, 50)
 przyklady = Przyklady.Przyklady()
 przykladyTestowe = Przyklady.Przyklady()
 
+ilosc_powtorzen_nauki = 10000
+
 
 def start():
-
     print("start()")
 
 
 def stop():
+    global trybNauki
     print("stop()")
+    trybNauki = False
 
 
 def nauka():
     """
-    metoda odpowiada za nauczenie perceptronów, jeśli sieć jeszcze nie istenieje, to ją tworzy
+    metoda odpowiada za nauczenie perceptronów,
+    jeśli sieć jeszcze nie istenieje, to ją tworzy,
+    następnie w pętli po perceptronach uczy każdy z nich zgodnie ze wzorem
     """
-    global trybNauki
+    global trybNauki, listaPerceptronow
     print("nauka()")
     trybNauki = True
-
+    l = 0
+    licznik = 0
+    iloscNierozpoznanych = 0
+    czyJeszczeSprawdzamy = True
+    zakres = len(przykladyTestowe.listaPrzykladow) - 1
+    numerPrzykladu = random.randint(0, zakres)
+    if len(listaPerceptronow) == 0:
+        print("pusta lista perceptronów")
+        for i in range(10):
+            per = Perceptron.Perceptron(i)
+            listaPerceptronow.append(per)
+    for p in listaPerceptronow:
+        print("uczymy {} perceptron".format(l))
+        l += 1
+        while czyJeszczeSprawdzamy:
+            rozpatrywany = przykladyTestowe.listaPrzykladow[numerPrzykladu]
+            coNaWyjsciu = p.co_jest_na_wyjsciu(rozpatrywany)
+            p.wartosc_err(rozpatrywany.cyfra)
+            if p.ERR == 0:
+                licznik += 1
+                numerPrzykladu = random.randint(0, zakres)
+            else:
+                if rozpatrywany.cyfra == p.n:
+                    iloscNierozpoznanych += 1
+                p.aktualizacja_wag()
+                licznik += 1
+                numerPrzykladu = random.randint(0, zakres)
+            if licznik % 1000 == 0:
+                print("Nie rozpoznano: {} cyfr: {}".format(funkcja_bledow(p), p.n))
+            if licznik == ilosc_powtorzen_nauki:
+                czyJeszczeSprawdzamy = False
+    trybNauki = False
 
 
 def koniec():
