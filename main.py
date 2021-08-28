@@ -53,8 +53,10 @@ def start():
     print("start()")
     przyklad = wczytaj_przyklad()
     for per in listaPerceptronow:
-        if per.co_jest_na_wyjsciu(przyklad) > 0:
-            w += per.n
+        if per.co_jest_na_wyjsciu(przyklad.lista) > 0.0:
+            print("na wyjściu mamy: {}".format(per.co_jest_na_wyjsciu(przyklad.lista)))
+            print("przykład to: {}".format(przyklad.cyfra))
+            w += str(per.n)
     if w == "":
         w = "?"
     wynik.set_wynik(w)
@@ -63,11 +65,14 @@ def start():
 def stop():
     """
     zatrzymuje naukę w danym momencie, zmienia wyświetlany wynik na "-"
+    czyści listę superpikseli (żeby wyświetlało cały biały "ekran")
     """
-    global trybNauki, wynik
+    global trybNauki, wynik, listaSuperpixeli
     print("stop()")
     trybNauki = False
     wynik.set_wynik("-")
+    for sp in listaSuperpixeli:
+        sp.kolor = (255, 255, 255)
 
 
 def nauka():
