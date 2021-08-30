@@ -11,7 +11,7 @@ class Perceptron:
     w konstruktorze generujemy losową tablicę wag
     """
 
-    def __init__(self, n=0, theta=0.1, ERR=0, wynik=0, stalaU=0.1, czyPrzyklad=0):
+    def __init__(self, n=0, theta=0.1, ERR=0.0, wynik=0.0, stalaU=0.1, czyPrzyklad=0.0):
 
         self.tablicaWag = []
         self.n = n
@@ -28,11 +28,11 @@ class Perceptron:
         print(self.tablicaWag)
 
     def wartosc_err(self, T_j):
-        pomoc = 0
+        pomoc = 0.0
         if T_j == self.n:
-            pomoc = 1
+            pomoc = 1.0
         else:
-            pomoc = -1
+            pomoc = -1.0
         self.ERR = pomoc - self.wynikDzialaniaSieci
 
     def co_jest_na_wyjsciu(self, wektor):
@@ -41,17 +41,22 @@ class Perceptron:
         :return: wynikDzialaniaSieci (binarnie, tzn nie dopuszczamy wartości pośrednich)
         służy tylko do ustawienia wartości wynikDziałaniaSieci dla danego perceptrona
         """
-        suma = -1 * self.theta
+        suma = -1.0 * self.theta
         for i in range(len(self.tablicaWag)):
             suma += (self.tablicaWag[i]) * wektor[i]
         if suma >= 0:
-            self.wynikDzialaniaSieci = 1
+            self.wynikDzialaniaSieci = 1.0
         else:
-            self.wynikDzialaniaSieci = -1
+            self.wynikDzialaniaSieci = -1.0
         return self.wynikDzialaniaSieci
 
     def aktualizacja_wag(self):
+        print("wagi przed aktualizacją: ")
+        print(self.tablicaWag)
+#        print("aktualizacja wag dla perceptrona {}".format(self.n))
         for i in range(35):
-            self.tablicaWag[i] += self.stalaUczenia * float(self.ERR) * float(self.czyPrzykladJestTaLiczba)
+#            print(self.tablicaWag[i] + self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba)
+            self.tablicaWag[i] += self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba
             self.theta -= float(self.ERR) * float(self.stalaUczenia)
-            
+        print("wagi po aktualizacji: ")
+        print(self.tablicaWag)

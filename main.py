@@ -95,8 +95,12 @@ def nauka():
         for i in range(10):
             per = Perceptron.Perceptron(i)
             listaPerceptronow.append(per)
+#            print("dodajemy {} perceptron, czyli numer {}".format(per.n, i))
+    print("\nLista perceptronów ma {} elementów\n".format(len(listaPerceptronow)))
     for p in listaPerceptronow:
-        print("uczymy {} perceptron".format(l))
+        print("uczymy {} perceptron, ma on numer {}".format(l, p.n))
+        print("Początkowa tablica wag: ")
+        print(p.tablicaWag)
         l += 1
         while czyJeszczeSprawdzamy:
             rozpatrywany = przykladyTestowe.listaPrzykladow[numerPrzykladu]
@@ -115,7 +119,11 @@ def nauka():
                 blad = funkcja_bledow(p)
                 print("Nie rozpoznano: {} cyfr: {}".format(blad, p.n))
             if licznik == ilosc_powtorzen_nauki:
+                print("koniec uczenia {} perceptrona".format(p.n))
                 czyJeszczeSprawdzamy = False
+        licznik = 0
+        print("Końcowa tablica wag: ")
+        print(p.tablicaWag)
     trybNauki = False
 
 
