@@ -82,7 +82,7 @@ def nauka():
     następnie w pętli po perceptronach uczy każdy z nich zgodnie ze wzorem
     """
     global trybNauki, listaPerceptronow
-    print("nauka()")
+#    print("nauka()")
     trybNauki = True
     l = 0
     licznik = 0
@@ -105,6 +105,10 @@ def nauka():
         while czyJeszczeSprawdzamy:
             rozpatrywany = przykladyTestowe.listaPrzykladow[numerPrzykladu]
             coNaWyjsciu = p.co_jest_na_wyjsciu(rozpatrywany.lista)
+            if rozpatrywany.cyfra == p.n:
+                p.czyPrzykladJestTaLiczba = 1
+            else:
+                p.czyPrzykladJestTaLiczba = -1
             p.wartosc_err(rozpatrywany.cyfra)
             if p.ERR == 0:
                 licznik += 1
@@ -122,6 +126,7 @@ def nauka():
                 print("koniec uczenia {} perceptrona".format(p.n))
                 czyJeszczeSprawdzamy = False
         licznik = 0
+#        czyJeszczeSprawdzamy = True
         print("Końcowa tablica wag: ")
         print(p.tablicaWag)
     trybNauki = False

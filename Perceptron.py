@@ -9,6 +9,7 @@ class Perceptron:
     klasa realizująca Perceptron
     każdy perceptron inicjujemy jako "zgaszony" (czyli 0), 1 interpretujemy jako "zapalony"
     w konstruktorze generujemy losową tablicę wag
+    czyPrzykladJestTaLiczba = 1 - jest, -1 - nie jest (albo 0)
     """
 
     def __init__(self, n=0, theta=0.1, ERR=0.0, wynik=0.0, stalaU=0.1, czyPrzyklad=0.0):
@@ -34,6 +35,8 @@ class Perceptron:
         else:
             pomoc = -1.0
         self.ERR = pomoc - self.wynikDzialaniaSieci
+        if self.ERR != 0:
+            print("nowa wartość ERR: {}, czyPrzyklad: {}, stalauczenia: {}".format(self.ERR, self.czyPrzykladJestTaLiczba,self.stalaUczenia))
 
     def co_jest_na_wyjsciu(self, wektor):
         """
@@ -55,8 +58,11 @@ class Perceptron:
         print(self.tablicaWag)
 #        print("aktualizacja wag dla perceptrona {}".format(self.n))
         for i in range(35):
-#            print(self.tablicaWag[i] + self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba)
+#            print(self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba)
             self.tablicaWag[i] += self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba
             self.theta -= float(self.ERR) * float(self.stalaUczenia)
+#        for zaw in self.tablicaWag:
+#            zaw += self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba
+#            self.theta -= float(self.ERR) * float(self.stalaUczenia)
         print("wagi po aktualizacji: ")
         print(self.tablicaWag)
