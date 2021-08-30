@@ -47,7 +47,7 @@ class Perceptron:
         suma = -1.0 * self.theta
         for i in range(len(self.tablicaWag)):
             suma += (self.tablicaWag[i]) * wektor[i]
-        if suma >= 0:
+        if suma >= self.theta:
             self.wynikDzialaniaSieci = 1.0
         else:
             self.wynikDzialaniaSieci = -1.0
