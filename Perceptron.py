@@ -61,8 +61,5 @@ class Perceptron:
 #            print(self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba)
             self.tablicaWag[i] += self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba
             self.theta -= float(self.ERR) * float(self.stalaUczenia)
-#        for zaw in self.tablicaWag:
-#            zaw += self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba
-#            self.theta -= float(self.ERR) * float(self.stalaUczenia)
         print("wagi po aktualizacji: ")
         print(self.tablicaWag)

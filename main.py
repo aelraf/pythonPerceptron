@@ -108,7 +108,7 @@ def nauka():
             if rozpatrywany.cyfra == p.n:
                 p.czyPrzykladJestTaLiczba = 1
             else:
-                p.czyPrzykladJestTaLiczba = -1
+                p.czyPrzykladJestTaLiczba = 0
             p.wartosc_err(rozpatrywany.cyfra)
             if p.ERR == 0:
                 licznik += 1
@@ -126,7 +126,7 @@ def nauka():
                 print("koniec uczenia {} perceptrona".format(p.n))
                 czyJeszczeSprawdzamy = False
         licznik = 0
-#        czyJeszczeSprawdzamy = True
+        czyJeszczeSprawdzamy = True
         print("Końcowa tablica wag: ")
         print(p.tablicaWag)
     trybNauki = False
