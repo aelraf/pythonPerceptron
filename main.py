@@ -132,6 +132,31 @@ def nauka():
     trybNauki = False
 
 
+def nauka2():
+    """
+    metoda odpowiada za nauczenie perceptronów, wszystko w jednej metodzie
+    jeśli sieć jeszcze nie istnieje, to ją tworzy,
+    następnie w pętli po perceptronach uczy każdy z nich zgodnie ze wzorem
+    wykorzystuje naukę z zapadką, to jest przechowaniem najlepszego dotyczasowego wyniku
+    """
+    global trybNauki, listaPerceptronow
+    #    print("nauka()")
+    trybNauki = True
+    l = 0
+    licznik = 0
+    iloscNierozpoznanych = 0
+    czyJeszczeSprawdzamy = True
+    zakres = len(przykladyTestowe.listaPrzykladow) - 1
+    numerPrzykladu = random.randint(0, zakres)
+    wagiKieszonka = []
+    if len(listaPerceptronow) == 0:
+        print("pusta lista perceptronów")
+        for i in range(10):
+            per = Perceptron.Perceptron(i)
+            listaPerceptronow.append(per)
+#            print("dodajemy {} perceptron, czyli numer {}".format(per.n, i))
+
+
 def koniec():
     global run
     run = False
