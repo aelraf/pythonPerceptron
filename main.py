@@ -132,7 +132,7 @@ def nauka():
     trybNauki = False
 
 
-def nauka2():
+def nauka2(p):
     """
     metoda odpowiada za nauczenie perceptronów, wszystko w jednej metodzie
     jeśli sieć jeszcze nie istnieje, to ją tworzy,
@@ -155,6 +155,39 @@ def nauka2():
             per = Perceptron.Perceptron(i)
             listaPerceptronow.append(per)
 #            print("dodajemy {} perceptron, czyli numer {}".format(per.n, i))
+    for p in listaPerceptronow:
+        print("uczymy {} perceptron, ma on numer {}".format(l, p.n))
+        print("Początkowa tablica wag: ")
+        print(p.tablicaWag)
+        l += 1
+        while czyJeszczeSprawdzamy:
+            rozpatrywany = przykladyTestowe.listaPrzykladow[numerPrzykladu]
+            coNaWyjsciu = p.co_jest_na_wyjsciu(rozpatrywany.lista)
+            if rozpatrywany.cyfra == p.n:
+                p.czyPrzykladJestTaLiczba = 1
+            else:
+                p.czyPrzykladJestTaLiczba = -1
+            p.wartosc_err(rozpatrywany.cyfra)
+            if p.ERR == 0:
+                licznik += 1
+                numerPrzykladu = random.randint(0, zakres)
+            else:
+                if rozpatrywany.cyfra == p.n:
+                    iloscNierozpoznanych += 1
+                p.aktualizacja_wag()
+                licznik += 1
+                numerPrzykladu = random.randint(0, zakres)
+            if licznik % 1000 == 0:
+                blad = funkcja_bledow(p)
+                print("Nie rozpoznano: {} cyfr: {}".format(blad, p.n))
+            if licznik == ilosc_powtorzen_nauki:
+                print("koniec uczenia {} perceptrona".format(p.n))
+                czyJeszczeSprawdzamy = False
+        licznik = 0
+        czyJeszczeSprawdzamy = True
+        print("Końcowa tablica wag: ")
+        print(p.tablicaWag)
+    trybNauki = False
 
 
 def koniec():

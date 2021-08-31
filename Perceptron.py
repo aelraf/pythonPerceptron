@@ -36,7 +36,7 @@ class Perceptron:
         else:
             pomoc = -1.0
         self.ERR = pomoc - self.wynikDzialaniaSieci
-        if self.ERR != 0:
+#        if self.ERR != 0:
 #            print("nowa wartość ERR: {}, czyPrzyklad: {}, stalauczenia: {}".format(self.ERR, self.czyPrzykladJestTaLiczba,self.stalaUczenia))
 
     def co_jest_na_wyjsciu(self, wektor):
