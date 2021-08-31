@@ -108,7 +108,7 @@ def nauka():
             if rozpatrywany.cyfra == p.n:
                 p.czyPrzykladJestTaLiczba = 1
             else:
-                p.czyPrzykladJestTaLiczba = 0
+                p.czyPrzykladJestTaLiczba = -1
             p.wartosc_err(rozpatrywany.cyfra)
             if p.ERR == 0:
                 licznik += 1

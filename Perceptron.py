@@ -2,6 +2,7 @@
 # 2021_08_26
 # na podstawie mojego kodu z 2018
 import random
+import Przyklady
 
 
 class Perceptron:
@@ -36,7 +37,7 @@ class Perceptron:
             pomoc = -1.0
         self.ERR = pomoc - self.wynikDzialaniaSieci
         if self.ERR != 0:
-            print("nowa wartość ERR: {}, czyPrzyklad: {}, stalauczenia: {}".format(self.ERR, self.czyPrzykladJestTaLiczba,self.stalaUczenia))
+#            print("nowa wartość ERR: {}, czyPrzyklad: {}, stalauczenia: {}".format(self.ERR, self.czyPrzykladJestTaLiczba,self.stalaUczenia))
 
     def co_jest_na_wyjsciu(self, wektor):
         """
@@ -47,7 +48,7 @@ class Perceptron:
         suma = -1.0 * self.theta
         for i in range(len(self.tablicaWag)):
             suma += (self.tablicaWag[i]) * wektor[i]
-        if suma >= self.theta:
+        if suma >= 0:
             self.wynikDzialaniaSieci = 1.0
         else:
             self.wynikDzialaniaSieci = -1.0
@@ -63,3 +64,31 @@ class Perceptron:
             self.theta -= float(self.ERR) * float(self.stalaUczenia)
         print("wagi po aktualizacji: ")
         print(self.tablicaWag)
+
+    def wszystkie_akcje(self, przyklad):
+        suma = -1.0 * self.theta
+        czyToTaCyfra = 0.0
+        cyfraJakaJestPrzyklad = przyklad.cyfra
+        for i in range(len(self.tablicaWag)):
+            suma += float(self.tablicaWag[i]) * float(przyklad.lista[i])
+        if suma >= 0.0:
+            self.wynikDzialaniaSieci = 1
+        else:
+            self.wynikDzialaniaSieci = -1
+        if cyfraJakaJestPrzyklad == self.n:
+            czyToTaCyfra = 1
+        else:
+            czyToTaCyfra = -1
+        self.czyPrzykladJestTaLiczba = czyToTaCyfra
+        self.ERR = czyToTaCyfra - self.wynikDzialaniaSieci
+
+
+    def licz_klasyfikowane_przyklady(self, listaPrzykladow):
+        wynik = 0
+        for p in listaPrzykladow:
+            self.wszystkie_akcje(p)
+            if self.ERR == 0:
+                wynik += 1
+        return wynik
+
+
