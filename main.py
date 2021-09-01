@@ -172,6 +172,8 @@ def nauka2():
     następnie w pętli po perceptronach uczy każdy z nich zgodnie ze wzorem
     wykorzystuje naukę z zapadką, to jest przechowaniem najlepszego dotyczasowego wyniku
     podczas nauki zaburzamy dany przykład (1 piksel), żeby perceptrony uczyły się na większej puli
+
+    na końcu wagi rekordzisty oraz jego thetę zachowujemy, jako najlepsze wartości dla tego perceptrona
     """
     global trybNauki, listaPerceptronow
     #    print("nauka()")
@@ -222,6 +224,9 @@ def nauka2():
         czyJeszczeSprawdzamy = True
         print("Końcowa tablica wag: ")
         print(per.tablicaWag)
+        per.tablicaWag = wagiKieszonka
+        per.theta = tetaKieszonka
+        print("\nCzas życia rekordzisty: {}, zapadka: {}, perceptron: {}".format(czasZyciaRekordzisty, zapadka, per.n))
     trybNauki = False
 
 

@@ -57,15 +57,15 @@ class Perceptron:
         return self.wynikDzialaniaSieci
 
     def aktualizacja_wag(self):
-        print("wagi przed aktualizacją: ")
-        print(self.tablicaWag)
+     #   print("wagi przed aktualizacją: ")
+     #   print(self.tablicaWag)
 #        print("aktualizacja wag dla perceptrona {}".format(self.n))
         for i in range(35):
 #            print(self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba)
             self.tablicaWag[i] += self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba
             self.theta -= float(self.ERR) * float(self.stalaUczenia)
-        print("wagi po aktualizacji: ")
-        print(self.tablicaWag)
+     #   print("wagi po aktualizacji: ")
+     #   print(self.tablicaWag)
 
     def wszystkie_akcje(self, przyklad):
         """
