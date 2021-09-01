@@ -90,6 +90,24 @@ def losujNumer(dlugosc, cyfra):
     return wynik
 
 
+def funkcja_bledow(per):
+    """
+    :param per z klasy Perceptron
+    :return: wartość funkcji błędów
+    jest wykorzystywana tylko podczas uczenia sieci, dlatego korzystamy z przykładów testowych
+    """
+    licznik = 0
+    for p in przykladyTestowe.listaPrzykladow:
+        print(p.cyfra)
+        print(p.lista)
+        print(per.tablicaWag)
+        per.co_jest_na_wyjsciu(p.lista)
+        per.wartosc_err(p.cyfra)
+        if per.ERR != 0:
+            licznik += 1
+    return licznik
+
+
 def nauka():
     """
     metoda odpowiada za nauczenie perceptronów,
@@ -147,7 +165,7 @@ def nauka():
     trybNauki = False
 
 
-def nauka2(p):
+def nauka2():
     """
     metoda odpowiada za nauczenie perceptronów, wszystko w jednej metodzie
     jeśli sieć jeszcze nie istnieje, to ją tworzy,
@@ -184,7 +202,22 @@ def nauka2(p):
         while czyJeszczeSprawdzamy:
             numerPrzykladu = losujNumer(len(przykladyTestowe.listaPrzykladow) - 1, per.n)
             rozpatrywany = przykladyTestowe.listaPrzykladow[numerPrzykladu]
-
+            rozpatrywany.zaburzPrzyklad()
+            per.wszystkie_akcje(rozpatrywany)
+            licznik += 1
+            if per.ERR == 0:
+                czasZyciaWag += 1
+                zapadka = per.licz_klasyfikowane_przyklady(przykladyTestowe.listaPrzykladow)
+                if czasZyciaWag > czasZyciaRekordzisty and zapadka >= maxZapadka:
+                    czasZyciaRekordzisty = czasZyciaWag
+                    wagiKieszonka = per.tablicaWag
+                    maxZapadka = zapadka
+                    tetaKieszonka = per.theta
+            else:
+                czasZyciaWag = 0
+                per.aktualizacja_wag()
+            if licznik == 1000:
+                czyJeszczeSprawdzamy = False
         licznik = 0
         czyJeszczeSprawdzamy = True
         print("Końcowa tablica wag: ")
@@ -195,24 +228,6 @@ def nauka2(p):
 def koniec():
     global run
     run = False
-
-
-def funkcja_bledow(per):
-    """
-    :param per z klasy Perceptron
-    :return: wartość funkcji błędów
-    jest wykorzystywana tylko podczas uczenia sieci, dlatego korzystamy z przykładów testowych
-    """
-    licznik = 0
-    for p in przykladyTestowe.listaPrzykladow:
-        print(p.cyfra)
-        print(p.lista)
-        print(per.tablicaWag)
-        per.co_jest_na_wyjsciu(p.lista)
-        per.wartosc_err(p.cyfra)
-        if per.ERR != 0:
-            licznik += 1
-    return licznik
 
 
 def rysuj(przyklad):
@@ -282,7 +297,7 @@ def main():
                 for p in tabP:
                     if p.klikPrzycisk():
                         if p.nazwa == "nauka" and not trybNauki:
-                            nauka()
+                            nauka2()
                         elif p.nazwa == "start" and not trybNauki:
                             start()
                         elif p.nazwa == "stop":

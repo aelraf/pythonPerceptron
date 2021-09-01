@@ -30,7 +30,7 @@ class Przyklad:
             i = 1
         else:
             i = 0
-        self.lista[odwracanyPiksel] = i 
+        self.lista[odwracanyPiksel] = i
 
 
 class Przyklady:
