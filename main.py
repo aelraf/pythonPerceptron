@@ -182,7 +182,7 @@ def nauka2(p):
         print(per.tablicaWag)
         l += 1
         while czyJeszczeSprawdzamy:
-            numerPrzykladu = losujNumer(len(przykladyTestowe.listaPrzykladow), per.n)
+            numerPrzykladu = losujNumer(len(przykladyTestowe.listaPrzykladow) - 1, per.n)
             rozpatrywany = przykladyTestowe.listaPrzykladow[numerPrzykladu]
 
         licznik = 0

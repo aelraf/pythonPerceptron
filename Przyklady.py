@@ -25,6 +25,12 @@ class Przyklad:
 
     def zaburzPrzyklad(self):
         odwracanyPiksel = random.randint(0, 34)
+        i = self.lista[odwracanyPiksel]
+        if i == 0:
+            i = 1
+        else:
+            i = 0
+        self.lista[odwracanyPiksel] = i 
 
 
 class Przyklady:
