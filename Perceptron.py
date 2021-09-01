@@ -11,6 +11,8 @@ class Perceptron:
     każdy perceptron inicjujemy jako "zgaszony" (czyli 0), 1 interpretujemy jako "zapalony"
     w konstruktorze generujemy losową tablicę wag
     czyPrzykladJestTaLiczba = 1 - jest, -1 - nie jest (albo 0)
+    n - cyfra rozpoznawana przez perceptron [0-9]
+    wynikDzialaniaSieci (0,1)
     """
 
     def __init__(self, n=0, theta=0.1, ERR=0.0, wynik=0.0, stalaU=0.1, czyPrzyklad=0.0):
@@ -66,6 +68,10 @@ class Perceptron:
         print(self.tablicaWag)
 
     def wszystkie_akcje(self, przyklad):
+        """
+        metoda dostaje jako paramter obiekt klasy Przyklad()
+        wykonuje wszystkie operacje perceptrona dla danego przykładu, ustawiając odpowiednio wartości
+        """
         suma = -1.0 * self.theta
         czyToTaCyfra = 0.0
         cyfraJakaJestPrzyklad = przyklad.cyfra

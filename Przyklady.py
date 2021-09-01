@@ -1,5 +1,7 @@
 # RafKac
 # 2021_08_26
+import random
+
 
 class Przyklad:
     """
@@ -20,6 +22,9 @@ class Przyklad:
 
     def czyscListePrzykladow(self):
         self.lista.clear()
+
+    def zaburzPrzyklad(self):
+        odwracanyPiksel = random.randint(0, 34)
 
 
 class Przyklady:

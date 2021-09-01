@@ -75,6 +75,21 @@ def stop():
         sp.kolor = (255, 255, 255)
 
 
+def losujNumer(dlugosc, cyfra):
+    """
+    losuje numer przykladu, ale 1/3 przykładów to te "pozytywne" dla danego perceptrona,
+    a 2/3 to negatywne
+    przyjmuje jako parametry długość przedziału losowania oraz cyfrę rozpoznawaną przez perceptron
+    """
+    wynik = 0
+    los = random.random()
+    if los < 1.0/3.0:
+        wynik = cyfra
+    else:
+        wynik = random.randint(0, dlugosc)
+    return wynik
+
+
 def nauka():
     """
     metoda odpowiada za nauczenie perceptronów,
@@ -138,6 +153,7 @@ def nauka2(p):
     jeśli sieć jeszcze nie istnieje, to ją tworzy,
     następnie w pętli po perceptronach uczy każdy z nich zgodnie ze wzorem
     wykorzystuje naukę z zapadką, to jest przechowaniem najlepszego dotyczasowego wyniku
+    podczas nauki zaburzamy dany przykład (1 piksel), żeby perceptrony uczyły się na większej puli
     """
     global trybNauki, listaPerceptronow
     #    print("nauka()")
@@ -149,44 +165,30 @@ def nauka2(p):
     zakres = len(przykladyTestowe.listaPrzykladow) - 1
     numerPrzykladu = random.randint(0, zakres)
     wagiKieszonka = []
+    tetaKieszonka = 0.0
+    czasZyciaWag = 0
+    czasZyciaRekordzisty = 0
+    zapadka = 0
+    maxZapadka = 0
     if len(listaPerceptronow) == 0:
         print("pusta lista perceptronów")
         for i in range(10):
             per = Perceptron.Perceptron(i)
             listaPerceptronow.append(per)
 #            print("dodajemy {} perceptron, czyli numer {}".format(per.n, i))
-    for p in listaPerceptronow:
-        print("uczymy {} perceptron, ma on numer {}".format(l, p.n))
+    for per in listaPerceptronow:
+        print("uczymy {} perceptron, ma on numer {}".format(l, per.n))
         print("Początkowa tablica wag: ")
-        print(p.tablicaWag)
+        print(per.tablicaWag)
         l += 1
         while czyJeszczeSprawdzamy:
+            numerPrzykladu = losujNumer(len(przykladyTestowe.listaPrzykladow), per.n)
             rozpatrywany = przykladyTestowe.listaPrzykladow[numerPrzykladu]
-            coNaWyjsciu = p.co_jest_na_wyjsciu(rozpatrywany.lista)
-            if rozpatrywany.cyfra == p.n:
-                p.czyPrzykladJestTaLiczba = 1
-            else:
-                p.czyPrzykladJestTaLiczba = -1
-            p.wartosc_err(rozpatrywany.cyfra)
-            if p.ERR == 0:
-                licznik += 1
-                numerPrzykladu = random.randint(0, zakres)
-            else:
-                if rozpatrywany.cyfra == p.n:
-                    iloscNierozpoznanych += 1
-                p.aktualizacja_wag()
-                licznik += 1
-                numerPrzykladu = random.randint(0, zakres)
-            if licznik % 1000 == 0:
-                blad = funkcja_bledow(p)
-                print("Nie rozpoznano: {} cyfr: {}".format(blad, p.n))
-            if licznik == ilosc_powtorzen_nauki:
-                print("koniec uczenia {} perceptrona".format(p.n))
-                czyJeszczeSprawdzamy = False
+
         licznik = 0
         czyJeszczeSprawdzamy = True
         print("Końcowa tablica wag: ")
-        print(p.tablicaWag)
+        print(per.tablicaWag)
     trybNauki = False
 
 
