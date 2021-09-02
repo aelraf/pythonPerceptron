@@ -42,8 +42,6 @@ class Perceptron:
         else:
             pomoc = -1.0
         self.ERR = pomoc - self.wynikDzialaniaSieci
-#        if self.ERR != 0:
-#            print("nowa wartość ERR: {}, czyPrzyklad: {}, stalauczenia: {}".format(self.ERR, self.czyPrzykladJestTaLiczba,self.stalaUczenia))
 
     def co_jest_na_wyjsciu(self, wektor):
         """
@@ -61,16 +59,9 @@ class Perceptron:
         return self.wynikDzialaniaSieci
 
     def aktualizacja_wag(self, przyklad):
-     #   print("wagi przed aktualizacją: ")
-     #   print(self.tablicaWag)
-#        print("aktualizacja wag dla perceptrona {}".format(self.n))
         for i in range(35):
-#            print("stU: {}, err: {}, czyjest: {}".format(self.stalaUczenia, self.ERR, self.czyPrzykladJestTaLiczba))
             self.tablicaWag[i] += self.stalaUczenia * self.ERR * przyklad.lista[i]
             self.theta = self.theta - self.ERR * self.stalaUczenia
-#            print("nowa teta: {}".format(self.theta))
-     #   print("wagi po aktualizacji: ")
-     #   print(self.tablicaWag)
 
     def wszystkie_akcje(self, przyklad):
         """
@@ -101,5 +92,3 @@ class Perceptron:
             if self.ERR == 0:
                 wynik += 1
         return wynik
-
-

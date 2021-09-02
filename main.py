@@ -5,7 +5,7 @@
 # program realizujący Perceptron do rozpoznawania liczb, na podstawie mojego kodu z C++
 # najpierw tworzymy GUI
 # później perceptrona
-# "liczby" do rozpoznawania są zapisywane 0/1, gdzie 1 <=> czarny, 0 <=> biały
+# "cyfry" do rozpoznawania są zapisywane 0/1, gdzie 1 <=> czarny, 0 <=> biały
 # w trybie nauki nie możemy klikać superpiskeli, tylko "stop" i "koniec" są aktywne
 
 import pygame
@@ -118,7 +118,6 @@ def nauka():
     następnie w pętli po perceptronach uczy każdy z nich zgodnie ze wzorem
     """
     global trybNauki, listaPerceptronow
-#    print("nauka()")
     trybNauki = True
     l = 0
     licznik = 0
@@ -127,12 +126,9 @@ def nauka():
     zakres = len(przykladyTestowe.listaPrzykladow) - 1
     numerPrzykladu = random.randint(0, zakres)
     if len(listaPerceptronow) == 0:
-        print("pusta lista perceptronów")
         for i in range(10):
             per = Perceptron.Perceptron(i)
             listaPerceptronow.append(per)
-#            print("dodajemy {} perceptron, czyli numer {}".format(per.n, i))
-    print("\nLista perceptronów ma {} elementów\n".format(len(listaPerceptronow)))
     for p in listaPerceptronow:
         print("uczymy {} perceptron, ma on numer {}".format(l, p.n))
         print("Początkowa tablica wag: ")
@@ -194,11 +190,9 @@ def nauka2():
     zapadka = 0
     maxZapadka = 0
     if len(listaPerceptronow) == 0:
-        print("pusta lista perceptronów")
         for i in range(10):
             per = Perceptron.Perceptron(i)
             listaPerceptronow.append(per)
-#            print("dodajemy {} perceptron, czyli numer {}".format(per.n, i))
     for per in listaPerceptronow:
         print("uczymy {} perceptron, ma on numer {}".format(l, per.n))
         print("Początkowa tablica wag: ")
@@ -233,6 +227,10 @@ def nauka2():
         czasZyciaRekordzisty = 0
         maxZapadka = 0
     trybNauki = False
+
+
+def losuj():
+    pass
 
 
 def koniec():
@@ -278,8 +276,10 @@ def main():
     tabP.append(przycisk_start)
     przycisk_stop = Przycisk.Przycisk(300, 120, "buttons/stop")
     tabP.append(przycisk_stop)
-    przycisk_koniec = Przycisk.Przycisk(300, 160, "buttons/koniec")
+    przycisk_koniec = Przycisk.Przycisk(300, 200, "buttons/koniec")
     tabP.append(przycisk_koniec)
+    przycisk_losuj = Przycisk.Przycisk(300, 160, "buttons/losuj")
+    tabP.append(przycisk_losuj)
 
     x = 10
     y = 10
@@ -294,8 +294,6 @@ def main():
 
     przyklady.dodajPrzyklady()
     przykladyTestowe.dodajPrzykladyTestowe()
-#    for p in przyklady.listaPrzykladow:
-#        rysuj(p)
 
     while run:
         clock += pygame.time.Clock().tick(60)/1000
@@ -312,12 +310,13 @@ def main():
                             start()
                         elif p.nazwa == "stop":
                             stop()
+                        elif p.nazwa == "losuj":
+                            losuj()
                         elif p.nazwa == "koniec":
                             koniec()
 
                 if pygame.mouse.get_pressed()[0]:
                     positionX, positionY = pygame.mouse.get_pos()
-        #print(str(positionX) + " " + str(positionY))
 
         for p in listaSuperpixeli:
             if p.x_cord <= positionX < p.x_cord + 30 and p.y_cord <= positionY < p.y_cord + 30 and not trybNauki:

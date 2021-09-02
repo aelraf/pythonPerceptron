@@ -28,12 +28,9 @@ class SuperPixel:
             self.kolor = self.black
         else:
             self.kolor = self.white
-#        print("metoda klik()")
 
     def zmianaKoloru(self, kolor):
         self.kolor = kolor
-#        print("zmieniono kolor na " + str(self.kolor))
 
     def draw(self, win):
         pygame.draw.rect(win, self.kolor, self.kwadrat)
-#        print("superPixel.draw()" + str(self.x_cord) + " " + str(self.y_cord))
