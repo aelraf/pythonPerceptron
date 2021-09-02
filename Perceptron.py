@@ -50,7 +50,7 @@ class Perceptron:
         suma = -1.0 * self.theta
         for i in range(len(self.tablicaWag)):
             suma += (self.tablicaWag[i]) * wektor[i]
-        if suma >= 0:
+        if suma >= 0.0:
             self.wynikDzialaniaSieci = 1.0
         else:
             self.wynikDzialaniaSieci = -1.0
@@ -61,9 +61,10 @@ class Perceptron:
      #   print(self.tablicaWag)
 #        print("aktualizacja wag dla perceptrona {}".format(self.n))
         for i in range(35):
-#            print(self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba)
+            print("stU: {}, err: {}, czyjest: {}".format(self.stalaUczenia, self.ERR, self.czyPrzykladJestTaLiczba))
             self.tablicaWag[i] += self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba
-            self.theta -= float(self.ERR) * float(self.stalaUczenia)
+            self.theta = self.theta - self.ERR * self.stalaUczenia
+            print("nowa teta: {}".format(self.theta))
      #   print("wagi po aktualizacji: ")
      #   print(self.tablicaWag)
 
@@ -78,13 +79,13 @@ class Perceptron:
         for i in range(len(self.tablicaWag)):
             suma += float(self.tablicaWag[i]) * float(przyklad.lista[i])
         if suma >= 0.0:
-            self.wynikDzialaniaSieci = 1
+            self.wynikDzialaniaSieci = 1.0
         else:
-            self.wynikDzialaniaSieci = -1
+            self.wynikDzialaniaSieci = -1.0
         if cyfraJakaJestPrzyklad == self.n:
-            czyToTaCyfra = 1
+            czyToTaCyfra = 1.0
         else:
-            czyToTaCyfra = -1
+            czyToTaCyfra = -1.0
         self.czyPrzykladJestTaLiczba = czyToTaCyfra
         self.ERR = czyToTaCyfra - self.wynikDzialaniaSieci
 

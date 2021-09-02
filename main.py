@@ -28,10 +28,14 @@ wynik = Wynik.Wynik(200, 50, 50, 50)
 przyklady = Przyklady.Przyklady()
 przykladyTestowe = Przyklady.Przyklady()
 
-ilosc_powtorzen_nauki = 10000
+ilosc_powtorzen_nauki = 10
 
 
 def wczytaj_przyklad():
+    """
+    (0, 0, 0) - czarny
+    (255, 255, 255) - biały
+    """
     if trybNauki:
         return
     p = Przyklady.Przyklad()
@@ -55,7 +59,6 @@ def start():
     for per in listaPerceptronow:
         if per.co_jest_na_wyjsciu(przyklad.lista) > 0.0:
             print("na wyjściu mamy: {}".format(per.co_jest_na_wyjsciu(przyklad.lista)))
-            print("przykład to: {}".format(przyklad.cyfra))
             w += str(per.n)
     if w == "":
         w = "?"
@@ -218,15 +221,17 @@ def nauka2():
             else:
                 czasZyciaWag = 0
                 per.aktualizacja_wag()
-            if licznik == 1000:
+            if licznik == ilosc_powtorzen_nauki:
                 czyJeszczeSprawdzamy = False
         licznik = 0
         czyJeszczeSprawdzamy = True
-        print("Końcowa tablica wag: ")
-        print(per.tablicaWag)
         per.tablicaWag = wagiKieszonka
         per.theta = tetaKieszonka
+        print("Końcowa tablica wag: ")
+        print(per.tablicaWag)
         print("\nCzas życia rekordzisty: {}, zapadka: {}, perceptron: {}".format(czasZyciaRekordzisty, zapadka, per.n))
+        czasZyciaRekordzisty = 0
+        maxZapadka = 0
     trybNauki = False
 
 
