@@ -28,7 +28,7 @@ wynik = Wynik.Wynik(200, 50, 50, 50)
 przyklady = Przyklady.Przyklady()
 przykladyTestowe = Przyklady.Przyklady()
 
-ilosc_powtorzen_nauki = 10
+ilosc_powtorzen_nauki = 1000
 
 
 def wczytaj_przyklad():
@@ -220,7 +220,7 @@ def nauka2():
                     tetaKieszonka = per.theta
             else:
                 czasZyciaWag = 0
-                per.aktualizacja_wag()
+                per.aktualizacja_wag(rozpatrywany)
             if licznik == ilosc_powtorzen_nauki:
                 czyJeszczeSprawdzamy = False
         licznik = 0

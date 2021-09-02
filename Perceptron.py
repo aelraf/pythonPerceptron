@@ -10,12 +10,12 @@ class Perceptron:
     klasa realizująca Perceptron
     każdy perceptron inicjujemy jako "zgaszony" (czyli 0), 1 interpretujemy jako "zapalony"
     w konstruktorze generujemy losową tablicę wag
-    czyPrzykladJestTaLiczba = 1 - jest, -1 - nie jest (albo 0)
+    czyPrzykladJestTaLiczba = 1 - jest, -1 - nie jest
     n - cyfra rozpoznawana przez perceptron [0-9]
-    wynikDzialaniaSieci (0,1)
+    wynikDzialaniaSieci {-1,1}
     """
 
-    def __init__(self, n=0, theta=0.1, ERR=0.0, wynik=0.0, stalaU=0.1, czyPrzyklad=0.0):
+    def __init__(self, n=0, theta=0.01, ERR=0.0, wynik=0.0, stalaU=0.005, czyPrzyklad=-1.0):
 
         self.tablicaWag = []
         self.n = n
@@ -26,12 +26,16 @@ class Perceptron:
         self.czyPrzykladJestTaLiczba = czyPrzyklad
 
         for i in range(35):
-            t = random.random()
+            t = 2.0 * random.random() - 1
             self.tablicaWag.append(t)
 
         print(self.tablicaWag)
 
     def wartosc_err(self, T_j):
+        """
+        :param T_j: to poprawna odpowiedź na rozpatrywany przykład
+        :return: ustawia wartość ERR
+        """
         pomoc = 0.0
         if T_j == self.n:
             pomoc = 1.0
@@ -56,15 +60,15 @@ class Perceptron:
             self.wynikDzialaniaSieci = -1.0
         return self.wynikDzialaniaSieci
 
-    def aktualizacja_wag(self):
+    def aktualizacja_wag(self, przyklad):
      #   print("wagi przed aktualizacją: ")
      #   print(self.tablicaWag)
 #        print("aktualizacja wag dla perceptrona {}".format(self.n))
         for i in range(35):
-            print("stU: {}, err: {}, czyjest: {}".format(self.stalaUczenia, self.ERR, self.czyPrzykladJestTaLiczba))
-            self.tablicaWag[i] += self.stalaUczenia * self.ERR * self.czyPrzykladJestTaLiczba
+#            print("stU: {}, err: {}, czyjest: {}".format(self.stalaUczenia, self.ERR, self.czyPrzykladJestTaLiczba))
+            self.tablicaWag[i] += self.stalaUczenia * self.ERR * przyklad.lista[i]
             self.theta = self.theta - self.ERR * self.stalaUczenia
-            print("nowa teta: {}".format(self.theta))
+#            print("nowa teta: {}".format(self.theta))
      #   print("wagi po aktualizacji: ")
      #   print(self.tablicaWag)
 
