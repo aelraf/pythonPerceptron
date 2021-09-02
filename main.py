@@ -229,10 +229,6 @@ def nauka2():
     trybNauki = False
 
 
-def losuj():
-    pass
-
-
 def koniec():
     global run
     run = False
@@ -255,7 +251,18 @@ def rysuj(przyklad):
             else:
                 listaSuperpixeli[licznik].zmianaKoloru((255, 255, 255))
             licznik += 1
-        wynik.wynik = str(przyklad.cyfra)
+    #    wynik.wynik = str(przyklad.cyfra)
+
+
+def losuj():
+    """
+    losuje przykład z listy do testowania (innej, niż ta do uczenia)
+    rysuje go na superpikselach
+    """
+    los = random.randint(0, len(przyklady.listaPrzykladow) - 1)
+    przyklad = przyklady.listaPrzykladow[los]
+    przyklad.zaburzPrzyklad()
+    rysuj(przyklad)
 
 
 def main():
