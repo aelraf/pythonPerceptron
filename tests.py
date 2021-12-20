@@ -44,6 +44,7 @@ class TestsPrzyklady(TestCase):
         self.assertEqual(p.lista,
                          [0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0,
                           1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0])
+        self.assertIsInstance(p, Przyklad)
 
     def test_zaburzPrzyklad(self):
         p = create_Przyklad()
@@ -59,13 +60,19 @@ class TestsPrzyklady(TestCase):
         list.dodajPrzyklady()
         self.assertIsNot(list, [])
 
-        p = Przyklad()
-        p.dodajStringDoListy("01110100011000110001100011000101110", 0)
-        self.assertIn(list.listaPrzykladow, [p])
+        p = create_Przyklad()
+        self.assertEqual(list.listaPrzykladow[0].lista, p.lista)
+        self.assertIsInstance(list, Przyklady)
 
     def test_dodajPrzykladyTestowe(self):
         list = Przyklady()
         list.dodajPrzykladyTestowe()
+        self.assertIsNot(list, [])
+
+        p = Przyklad()
+        p.dodajStringDoListy("01110100011000110001100011000101111", 0)
+        self.assertEqual(list.listaPrzykladow[0].lista, p.lista)
+        self.assertIsInstance(list, Przyklady)
 
 
 if __name__ == "__main__":
