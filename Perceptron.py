@@ -84,7 +84,6 @@ class Perceptron:
         self.czyPrzykladJestTaLiczba = czyToTaCyfra
         self.ERR = czyToTaCyfra - self.wynikDzialaniaSieci
 
-
     def licz_klasyfikowane_przyklady(self, listaPrzykladow):
         wynik = 0
         for p in listaPrzykladow:
