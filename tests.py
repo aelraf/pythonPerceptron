@@ -6,6 +6,7 @@ from unittest import TestCase
 
 import pygame.mouse
 
+from Perceptron import Perceptron
 from Przycisk import Przycisk
 from Przyklady import Przyklad, Przyklady
 
@@ -73,6 +74,30 @@ class TestsPrzyklady(TestCase):
         p.dodajStringDoListy("01110100011000110001100011000101111", 0)
         self.assertEqual(list.listaPrzykladow[0].lista, p.lista)
         self.assertIsInstance(list, Przyklady)
+
+
+def give_perceptron(n=2):
+    theta = 0.01
+    ERR = 0.0
+    wynik = 0.345
+    stalaU = 0.005
+    czyPrzyklad = -1.0
+    return Perceptron(n=n, theta=theta, ERR=ERR, wynik=wynik, stalaU=stalaU, czyPrzyklad=czyPrzyklad)
+
+
+class TestsPerceptron(TestCase):
+    def test_wartosc_err(self):
+        perceptron = give_perceptron()
+        tj1 = 2
+        tj2 = 5
+        wynik = perceptron.wartosc_err(T_j=tj1)
+        self.assertEqual(perceptron.ERR, 1.0-0.345)
+
+        wynik2 = perceptron.wartosc_err(T_j=tj2)
+        self.assertEqual(perceptron.ERR, -1.0-0.345)
+
+    def test_co_jest_na_wejsciu(self):
+        perceptron = give_perceptron()
 
 
 if __name__ == "__main__":
