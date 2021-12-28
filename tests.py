@@ -85,6 +85,14 @@ def give_perceptron(n=2):
     return Perceptron(n=n, theta=theta, ERR=ERR, wynik=wynik, stalaU=stalaU, czyPrzyklad=czyPrzyklad)
 
 
+def copy_of_list(list):
+    wynik = []
+    print("lista: {}".format(list))
+    for i in range(len(list)):
+        wynik.append(list[i])
+    return wynik
+
+
 class TestsPerceptron(TestCase):
     def test_wartosc_err(self):
         perceptron = give_perceptron()
@@ -96,8 +104,22 @@ class TestsPerceptron(TestCase):
         wynik2 = perceptron.wartosc_err(T_j=tj2)
         self.assertEqual(perceptron.ERR, -1.0-0.345)
 
-    def test_co_jest_na_wejsciu(self):
+    def test_co_jest_na_wyjsciu(self):
         perceptron = give_perceptron()
+        # tab_wag = perceptron.tablicaWag()
+        tab_wag = copy_of_list(perceptron.tablicaWag)
+        wektor = [0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1,
+                  1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1]
+        wynik_1 = 0.0
+        for i in range(len(wektor)):
+            wynik_1 += wektor[i]*tab_wag[i]
+        if wynik_1 >= 0.0:
+            wynik_1 = 1.0
+        else:
+            wynik_1 = -1.0
+        print("test_co_jest_na_wejsciu wynik: {}".format(wynik_1))
+        wynik_2 = perceptron.co_jest_na_wyjsciu(wektor)
+        self.assertEqual(wynik_1, wynik_2)
 
 
 if __name__ == "__main__":
