@@ -153,7 +153,14 @@ class TestsPerceptron(TestCase):
         self.assertNotEqual(perceptron.wynikDzialaniaSieci, 0.345)
 
     def test_licz_klasyfikowane_przyklady(self):
-        print()
+        przyklad = create_Przyklad()
+        perceptron = give_perceptron()
+        lista = [przyklad]
+
+        wynik = perceptron.licz_klasyfikowane_przyklady(lista)
+
+        self.assertGreaterEqual(wynik, 0)
+        self.assertLessEqual(wynik, 1)
 
 
 if __name__ == "__main__":
