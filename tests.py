@@ -121,6 +121,24 @@ class TestsPerceptron(TestCase):
         wynik_2 = perceptron.co_jest_na_wyjsciu(wektor)
         self.assertEqual(wynik_1, wynik_2)
 
+    def test_aktualizacja_wag(self):
+        """
+        Sprawdzamy zmianę tablicy wag oraz theta.
+        """
+        przyklad = create_Przyklad()
+        perceptron = give_perceptron()
+        tab_wag = copy_of_list(perceptron.tablicaWag)
+        theta = perceptron.theta
+        t_j = 0
+        perceptron.wartosc_err(t_j)
+        perceptron.aktualizacja_wag(przyklad)
+
+        self.assertNotEqual(perceptron.theta, theta)
+
+        self.assertNotEqual(perceptron.tablicaWag, tab_wag)
+
+        self.assertIsNot(perceptron.tablicaWag[3], tab_wag[3])
+
 
 if __name__ == "__main__":
     unittest.main()
