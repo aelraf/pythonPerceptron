@@ -139,6 +139,22 @@ class TestsPerceptron(TestCase):
 
         self.assertIsNot(perceptron.tablicaWag[3], tab_wag[3])
 
+    def test_wszystkie_akcje(self):
+        przyklad = create_Przyklad()
+        perceptron = give_perceptron()
+        theta = perceptron.theta
+
+        perceptron.wszystkie_akcje(przyklad)
+
+        self.assertEqual(perceptron.theta, theta)
+
+        self.assertEqual(perceptron.czyPrzykladJestTaLiczba, -1.0)
+
+        self.assertNotEqual(perceptron.wynikDzialaniaSieci, 0.345)
+
+    def test_licz_klasyfikowane_przyklady(self):
+        print()
+
 
 if __name__ == "__main__":
     unittest.main()
