@@ -6,6 +6,7 @@ from unittest import TestCase
 
 import pygame.mouse
 
+import main
 from Perceptron import Perceptron
 from Przycisk import Przycisk
 from Przyklady import Przyklad, Przyklady
@@ -161,6 +162,20 @@ class TestsPerceptron(TestCase):
 
         self.assertGreaterEqual(wynik, 0)
         self.assertLessEqual(wynik, 1)
+
+
+class TestsMain(TestCase):
+    def test_wczytaj_przyklad(self):
+        trybNauki = False
+
+        p = main.wczytaj_przyklad()
+
+        self.assertTrue(p)
+
+    def test_main(self):
+        win = main.main()
+
+        self.assertIsNone(win)
 
 
 if __name__ == "__main__":
